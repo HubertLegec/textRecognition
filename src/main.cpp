@@ -30,6 +30,8 @@ int main(int argc, char *argv[]) {
     imshow("decomposition", decomposition);
     namedWindow("recognition", WINDOW_NORMAL);
     imshow("recognition", outImg);
+    namedWindow("detection", WINDOW_GUI_NORMAL);
+    imshow("detection", detector.getImageDetection());
 
     waitKey(0);
     return 0;

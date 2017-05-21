@@ -60,16 +60,16 @@ Mat TextDetector::getImageDecomposition() const {
 }
 
 void TextDetector::erDraw(vector<Vec2i> group, Mat &segmentation) const {
-    for (int r = 0; r < group.size(); r++) {
-        ERStat er = regions[group[r][0]][group[r][1]];
+    for (Vec2i gr : group) {
+        ERStat er = regions[gr[0]][gr[1]];
         // deprecate the root region
         if (er.parent == NULL) {
             continue;
         }
         int newMaskVal = 255;
         int flags = 4 + (newMaskVal << 8) + FLOODFILL_FIXED_RANGE + FLOODFILL_MASK_ONLY;
-        Point seedPoint(er.pixel % channels[group[r][0]].cols, er.pixel / channels[group[r][0]].cols);
-        floodFill(channels[group[r][0]], segmentation, seedPoint, Scalar(255), 0, Scalar(er.level), Scalar(0), flags);
+        Point seedPoint(er.pixel % channels[gr[0]].cols, er.pixel / channels[gr[0]].cols);
+        floodFill(channels[gr[0]], segmentation, seedPoint, Scalar(255), 0, Scalar(er.level), Scalar(0), flags);
     }
 }
 
@@ -79,4 +79,17 @@ vector<Rect> TextDetector::getNmBoxes() const {
 
 vector<vector<Vec2i>> TextDetector::getNmRegionGroups() const {
     return nmRegionGroups;
+}
+
+Mat TextDetector::getImageDetection() const {
+    Mat outImageDetection;
+    image.copyTo(outImageDetection);
+    for (auto box : nmBoxes) {
+        drawRectOnImage(box, outImageDetection);
+    }
+    return outImageDetection;
+}
+
+void TextDetector::drawRectOnImage(const Rect &rect, Mat &image) {
+    rectangle(image, rect.tl(), rect.br(), Scalar(0, 255, 255), 3);
 }

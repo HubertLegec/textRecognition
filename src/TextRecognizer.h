@@ -14,19 +14,15 @@ private:
     Mat image;
     vector<Mat> channels;
     Mat outImage;
-    Mat outImageDetection;
-    Mat outImageSegmentation;
     Ptr<OCRTesseract> ocr;
-    string output;
-    float scaleImage;
     float scaleFont;
     vector<string> wordsDetection;
 
-    static bool isRepetitive(const string &s);
-
-    void drawRectOnOutput(const Rect &rect);
-
     void erDraw(vector<vector<ERStat>> regions, vector<Vec2i> group, Mat &segmentation) const;
+
+    static bool isWordToOmit(string word, float confidence);
+
+    void drawTextBox(const Rect &rect, const string &text);
 
 public:
     TextRecognizer(const Mat &image, const vector<Mat> channels);
@@ -34,6 +30,8 @@ public:
     void recognize(vector<vector<ERStat>> regions, vector<Rect> nmBoxes, vector<vector<Vec2i>> nmRegionGroups);
 
     Mat getOutImage() const;
+
+    vector<string> getWordsDetection() const;
 };
 
 #endif TEXTRECOGNITION_TEXTRECOGNIZER_H
