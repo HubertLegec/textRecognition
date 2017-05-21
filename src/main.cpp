@@ -267,11 +267,11 @@ int main(int argc, char* argv[])
     //resize(out_img,out_img,Size(image.cols*scale_img,image.rows*scale_img));
     namedWindow("recognition",WINDOW_NORMAL);
     imshow("recognition", out_img);
-    waitKey(0);
+
     //imwrite("recognition.jpg", out_img);
     //imwrite("segmentation.jpg", out_img_segmentation);
-    //imwrite("decomposition.jpg", out_img_decomposition);
-
+    imshow("decomposition", out_img_decomposition);
+    waitKey(0);
     return 0;
 }
 
