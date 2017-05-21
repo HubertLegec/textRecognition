@@ -20,7 +20,7 @@ using namespace std;
 using namespace cv;
 using namespace cv::text;
 
-//Calculate edit distance netween two words
+//Calculate edit distance between two words
 size_t edit_distance(const string& A, const string& B);
 size_t min(size_t x, size_t y, size_t z);
 bool   isRepetitive(const string& s);
@@ -32,9 +32,7 @@ void   er_draw(vector<Mat> &channels, vector<vector<ERStat> > &regions, vector<V
 int main(int argc, char* argv[])
 {
     cout << endl << argv[0] << endl << endl;
-    cout << "A demo program of End-to-end Scene Text Detection and Recognition: " << endl;
-    cout << "Shows the use of the Tesseract OCR API with the Extremal Region Filter algorithm described in:" << endl;
-    cout << "Neumann L., Matas J.: Real-Time Scene Text Localization and Recognition, CVPR 2012" << endl << endl;
+    cout << "Program of Scene Text Detection and Recognition" << endl;
 
     Mat image;
     if(argc>1)
