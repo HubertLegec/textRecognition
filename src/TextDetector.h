@@ -1,7 +1,3 @@
-//
-// Created by Hubert Legęć on 21.05.2017.
-//
-
 #ifndef TEXTRECOGNITION_TEXTDETECTOR_H
 #define TEXTRECOGNITION_TEXTDETECTOR_H
 
@@ -29,16 +25,22 @@ private:
     vector<vector<ERStat>> regions;
     vector<Rect> nmBoxes;
     vector<vector<Vec2i>> nmRegionGroups;
+
     //Draw ER's in an image via floodFill
-    void erDraw(vector<Vec2i> group, Mat& segmentation);
+    void erDraw(vector<Vec2i> group, Mat &segmentation) const;
+
 public:
-    TextDetector(const string classifierNM1Path, const string classifierNM2Path, const Mat& image, const vector<Mat>& channels);
+    TextDetector(const string classifierNM1Path, const string classifierNM2Path, const Mat &image, const vector<Mat> &channels);
+
     void detect();
-    vector<Rect> getNmBoxes();
-    vector<vector<Vec2i>> getNmRegionGroups();
-    vector<vector<ERStat>> getRegions();
-    Mat getImageDecomposition();
+
+    vector<Rect> getNmBoxes() const;
+
+    vector<vector<Vec2i>> getNmRegionGroups() const;
+
+    vector<vector<ERStat>> getRegions() const;
+
+    Mat getImageDecomposition() const;
 };
 
-
-#endif //TEXTRECOGNITION_TEXTDETECTOR_H
+#endif TEXTRECOGNITION_TEXTDETECTOR_H

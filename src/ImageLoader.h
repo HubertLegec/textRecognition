@@ -21,9 +21,9 @@ private:
 public:
     ImageLoader(string& imagePath);
     void loadImage();
-    Mat& getImage();
-    vector<Mat>& getChannels();
+    Mat getImage() const;
+    vector<Mat> getChannels() const;
 };
 
 
-#endif //TEXTRECOGNITION_IMAGELOADER_H
+#endif TEXTRECOGNITION_IMAGELOADER_H
