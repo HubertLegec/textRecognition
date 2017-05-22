@@ -17,12 +17,17 @@ class ImageLoader {
 private:
     string imagePath;
     vector<Mat> channels;
+    vector<Mat> colorChannels;
     Mat image;
 public:
     ImageLoader(string& imagePath);
+    /* Must be called before other methods in this class */
     void loadImage();
     Mat getImage() const;
+    /* Returns gray and negative gray channel */
     vector<Mat> getChannels() const;
+    /* Returns color and negative color channels */
+    vector<Mat> getColorChannels() const;
 };
 
 
