@@ -20,6 +20,7 @@ void ImageLoader::loadImage() {
     Mat gray;
     cvtColor(this->image, gray, COLOR_RGB2GRAY);
     channels.push_back(gray);
+    // Append negative channels to detect ER- (bright regions over dark background)
     Mat greyNegative = 255 - gray;
     channels.push_back(greyNegative);
     // --- color channels ---

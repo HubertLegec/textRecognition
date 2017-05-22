@@ -20,13 +20,18 @@ private:
     vector<Mat> colorChannels;
     Mat image;
 public:
-    ImageLoader(string& imagePath);
-    /* Must be called before other methods in this class */
+    ImageLoader(string &imagePath);
+
+    /** Must be called before other methods in this class */
     void loadImage();
+
+    /** Returns loaded image */
     Mat getImage() const;
-    /* Returns gray and negative gray channel */
+
+    /** Returns gray and negative gray channel */
     vector<Mat> getChannels() const;
-    /* Returns color and negative color channels */
+
+    /** Returns color and negative color channels */
     vector<Mat> getColorChannels() const;
 };
 

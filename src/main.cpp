@@ -9,7 +9,6 @@ using namespace std;
 using namespace cv;
 
 
-//Perform text detection and recognition and evaluate results using edit distance
 int main(int argc, char *argv[]) {
     string imagePath(argv[1]);
     string classifierNM1Path = "trained_classifierNM1.xml";
