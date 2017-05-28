@@ -2,9 +2,7 @@
 #include <iostream>
 #include "opencv2/text.hpp"
 #include "opencv2/highgui.hpp"
-#include "ImageLoader.h"
-#include "TextDetector.h"
-#include "TextRecognizer.h"
+#include "RecognitionModule.h"
 
 
 int main(int argc, char *argv[]) {
@@ -12,20 +10,14 @@ int main(int argc, char *argv[]) {
     std::string classifierNM1Path = "trained_classifierNM1.xml";
     std::string classifierNM2Path = "trained_classifierNM2.xml";
 
-    ImageLoader loader(imagePath);
-    loader.loadImage();
-    vector<Mat> channels = loader.getColorChannels();
-
-    TextDetector detector(classifierNM1Path, classifierNM2Path, loader.getImage(), channels);
-    detector.detect();
-    auto decompositions = detector.getImageDecompositions();
-
-    TextRecognizer recognizer(loader.getImage(), channels);
-    recognizer.recognize(detector.getRegions(), detector.getNmBoxes(), detector.getNmRegionGroups());
-    Mat outImg = recognizer.getOutImage();
+    RecognitionModule recognitionModule(imagePath);
+    recognitionModule.process(classifierNM1Path, classifierNM2Path);
+    auto decompositions = recognitionModule.getDecompositions();
+    Mat outImg = recognitionModule.getOutImg();
+    auto words = recognitionModule.getWords();
 
     std::cout << "--- words ---" << std::endl;
-    for (auto word : recognizer.getWordsDetection()) {
+    for (auto word : words) {
         std::cout << word.toString() << endl;
     }
     std::cout << "-------------" << std::endl;

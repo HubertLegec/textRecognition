@@ -5,7 +5,7 @@
 const int TextDetector::THRESHOLD_DELTA = 8;
 const float TextDetector::MIN_AREA = 0.0001;
 const float TextDetector::MAX_AREA = 0.5;
-const float TextDetector::MIN_PROBABILITY = 0.8;
+const float TextDetector::MIN_PROBABILITY = 0.4;
 const bool TextDetector::NON_MAX_SUPPRESSION = true;
 const float TextDetector::MIN_PROBABILITY_DIFF = 0.2;
 const float TextDetector::MIN_PROBABILITY_NM2 = 0.7;
