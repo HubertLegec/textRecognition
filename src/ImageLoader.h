@@ -12,15 +12,14 @@
 
 using namespace std;
 using namespace cv;
+using namespace cv::text;
 
 class ImageLoader {
 private:
     string imagePath;
-    vector<Mat> channels;
-    vector<Mat> colorChannels;
     Mat image;
 public:
-    ImageLoader(string &imagePath);
+    ImageLoader(const string imagePath);
 
     /** Must be called before other methods in this class */
     void loadImage();
@@ -31,9 +30,12 @@ public:
     /** Returns gray and negative gray channel */
     vector<Mat> getChannels() const;
 
-    /** Returns color and negative color channels */
-    vector<Mat> getColorChannels() const;
+    /** Returns color and negative color channels
+     * @param mode mode of channel calculations.
+     * Available options are: **ERFILTER_NM_RGBLGrad** (used by default) and **ERFILTER_NM_IHSGrad**.
+     */
+    vector<Mat> getColorChannels(int mode = ERFILTER_NM_RGBLGrad) const;
 };
 
 
-#endif TEXTRECOGNITION_IMAGELOADER_H
+#endif //TEXTRECOGNITION_IMAGELOADER_H

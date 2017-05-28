@@ -45,4 +45,4 @@ public:
     vector<string> getWordsDetection() const;
 };
 
-#endif TEXTRECOGNITION_TEXTRECOGNIZER_H
+#endif //TEXTRECOGNITION_TEXTRECOGNIZER_H

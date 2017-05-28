@@ -86,18 +86,3 @@ vector<Rect> TextDetector::getNmBoxes() const {
 vector<vector<Vec2i>> TextDetector::getNmRegionGroups() const {
     return nmRegionGroups;
 }
-
-Mat TextDetector::getImageDetection() const {
-    Mat outImageDetection;
-    image.copyTo(outImageDetection);
-    for (auto box : nmBoxes) {
-        drawRectOnImage(box, outImageDetection);
-    }
-    return outImageDetection;
-}
-
-void TextDetector::drawRectOnImage(const Rect &rect, Mat &image) {
-    Scalar lineColor(0, 255, 255);
-    int lineThickness = 3;
-    rectangle(image, rect.tl(), rect.br(), lineColor, lineThickness);
-}

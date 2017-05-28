@@ -36,8 +36,6 @@ private:
     //Draw ER's in an image via floodFill
     void erDraw(vector<Vec2i> group, Mat &segmentation) const;
 
-    static void drawRectOnImage(const Rect &rect, Mat &image);
-
 public:
     TextDetector(const string classifierNM1Path, const string classifierNM2Path, const Mat &image,
                  const vector<Mat> &channels);
@@ -56,9 +54,6 @@ public:
 
     /** Get image with extracted Extremal Regions */
     Mat getImageDecomposition() const;
-
-    /** Get image with marked regions which contains text */
-    Mat getImageDetection() const;
 };
 
-#endif TEXTRECOGNITION_TEXTDETECTOR_H
+#endif //TEXTRECOGNITION_TEXTDETECTOR_H

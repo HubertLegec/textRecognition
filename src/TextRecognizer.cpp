@@ -1,6 +1,5 @@
 #include "TextRecognizer.h"
 #include "opencv2/imgproc.hpp"
-#include <opencv2/highgui.hpp>
 
 const int TextRecognizer::TEXT_IMAGE_BORDER = 15;
 
@@ -22,7 +21,6 @@ void TextRecognizer::recognize(vector<vector<ERStat>> regions, vector<Rect> nmBo
         vector<float> confidences;
         string output;
         ocr->run(groupImg, output, &boxes, &words, &confidences, OCR_LEVEL_WORD);
-
         output.erase(remove(output.begin(), output.end(), '\n'), output.end());
 
         if (output.size() < 3) {
@@ -33,10 +31,8 @@ void TextRecognizer::recognize(vector<vector<ERStat>> regions, vector<Rect> nmBo
             if (isWordToOmit(words[j], confidences[j])) {
                 continue;
             }
-
             boxes[j].x += nmBoxes[i].x - TEXT_IMAGE_BORDER;
             boxes[j].y += nmBoxes[i].y - TEXT_IMAGE_BORDER;
-
             wordsDetection.push_back(words[j]);
             drawTextBox(boxes[j], words[j]);
         }
@@ -79,8 +75,6 @@ Mat TextRecognizer::getTextGroupImage(Rect nmBox, vector<Vec2i> nmRegionGroup, v
     erDraw(regions, nmRegionGroup, groupImg);
     groupImg(nmBox).copyTo(groupImg);
     copyMakeBorder(groupImg, groupImg, TEXT_IMAGE_BORDER, TEXT_IMAGE_BORDER, TEXT_IMAGE_BORDER, TEXT_IMAGE_BORDER, BORDER_CONSTANT);
-    //imshow("group img", groupImg);
-    //waitKey(0);
     return groupImg;
 }
 

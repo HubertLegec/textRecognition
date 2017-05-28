@@ -5,23 +5,21 @@
 #include "TextDetector.h"
 #include "TextRecognizer.h"
 
-using namespace std;
-using namespace cv;
-
 
 int main(int argc, char *argv[]) {
-    string imagePath(argv[1]);
-    string classifierNM1Path = "trained_classifierNM1.xml";
-    string classifierNM2Path = "trained_classifierNM2.xml";
+    std::string imagePath(argv[1]);
+    std::string classifierNM1Path = "trained_classifierNM1.xml";
+    std::string classifierNM2Path = "trained_classifierNM2.xml";
 
     ImageLoader loader(imagePath);
     loader.loadImage();
+    vector<Mat> channels = loader.getColorChannels();
 
-    TextDetector detector(classifierNM1Path, classifierNM2Path, loader.getImage(), loader.getChannels());
+    TextDetector detector(classifierNM1Path, classifierNM2Path, loader.getImage(), channels);
     detector.detect();
     Mat decomposition = detector.getImageDecomposition();
 
-    TextRecognizer recognizer(loader.getImage(), loader.getChannels());
+    TextRecognizer recognizer(loader.getImage(), channels);
     recognizer.recognize(detector.getRegions(), detector.getNmBoxes(), detector.getNmRegionGroups());
     Mat outImg = recognizer.getOutImage();
 
@@ -29,8 +27,6 @@ int main(int argc, char *argv[]) {
     imshow("decomposition", decomposition);
     namedWindow("recognition", WINDOW_NORMAL);
     imshow("recognition", outImg);
-    namedWindow("detection", WINDOW_GUI_NORMAL);
-    imshow("detection", detector.getImageDetection());
 
     waitKey(0);
     return 0;
