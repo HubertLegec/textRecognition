@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 #include "opencv2/text.hpp"
 #include "opencv2/highgui.hpp"
 #include "ImageLoader.h"
@@ -17,14 +18,22 @@ int main(int argc, char *argv[]) {
 
     TextDetector detector(classifierNM1Path, classifierNM2Path, loader.getImage(), channels);
     detector.detect();
-    Mat decomposition = detector.getImageDecomposition();
+    auto decompositions = detector.getImageDecompositions();
 
     TextRecognizer recognizer(loader.getImage(), channels);
     recognizer.recognize(detector.getRegions(), detector.getNmBoxes(), detector.getNmRegionGroups());
     Mat outImg = recognizer.getOutImage();
 
-    namedWindow("decomposition", WINDOW_NORMAL);
-    imshow("decomposition", decomposition);
+    std::cout << "--- words ---" << std::endl;
+    for (auto word : recognizer.getWordsDetection()) {
+        std::cout << word.toString() << endl;
+    }
+    std::cout << "-------------" << std::endl;
+
+    for(int i = 0; i < decompositions.size(); i++) {
+        namedWindow("decomposition" + to_string(i), WINDOW_NORMAL);
+        imshow("decomposition" + to_string(i), decompositions[i]);
+    }
     namedWindow("recognition", WINDOW_NORMAL);
     imshow("recognition", outImg);
 

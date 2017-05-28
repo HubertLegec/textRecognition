@@ -33,7 +33,7 @@ void TextRecognizer::recognize(vector<vector<ERStat>> regions, vector<Rect> nmBo
             }
             boxes[j].x += nmBoxes[i].x - TEXT_IMAGE_BORDER;
             boxes[j].y += nmBoxes[i].y - TEXT_IMAGE_BORDER;
-            wordsDetection.push_back(words[j]);
+            wordsDetection.push_back(DetectedWord(words[j], confidences[j]));
             drawTextBox(boxes[j], words[j]);
         }
     }
@@ -55,9 +55,8 @@ void TextRecognizer::erDraw(vector<vector<ERStat>> regions, vector<Vec2i> group,
 }
 
 bool TextRecognizer::isWordToOmit(string text, float confidence) {
-    return text.size() < 2 || confidence < 51 ||
-           (text.size() == 2 && text[0] == text[1]) ||
-           (text.size() < 4 && confidence < 60);
+    return text.size() < 2 || confidence < 75 ||
+           (text.size() == 2 && text[0] == text[1]);
 }
 
 void TextRecognizer::drawTextBox(const Rect &rect, const string &text) {
@@ -82,6 +81,6 @@ Mat TextRecognizer::getOutImage() const {
     return outImage;
 }
 
-vector<string> TextRecognizer::getWordsDetection() const {
+vector<DetectedWord> TextRecognizer::getWordsDetection() const {
     return wordsDetection;
 }

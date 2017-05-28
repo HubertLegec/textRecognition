@@ -3,11 +3,11 @@
 #include <iostream>
 
 const int TextDetector::THRESHOLD_DELTA = 8;
-const float TextDetector::MIN_AREA = 0.00025;
-const float TextDetector::MAX_AREA = 0.13;
-const float TextDetector::MIN_PROBABILITY = 0.4;
+const float TextDetector::MIN_AREA = 0.0001;
+const float TextDetector::MAX_AREA = 0.5;
+const float TextDetector::MIN_PROBABILITY = 0.8;
 const bool TextDetector::NON_MAX_SUPPRESSION = true;
-const float TextDetector::MIN_PROBABILITY_DIFF = 0.1;
+const float TextDetector::MIN_PROBABILITY_DIFF = 0.2;
 const float TextDetector::MIN_PROBABILITY_NM2 = 0.7;
 
 TextDetector::TextDetector(const string classifierNM1Path, const string classifierNM2Path, const Mat &image,
@@ -47,8 +47,8 @@ vector<vector<ERStat>> TextDetector::getRegions() const {
     return regions;
 }
 
-Mat TextDetector::getImageDecomposition() const {
-    Mat outImgDecomposition = Mat::zeros(image.rows + 2, image.cols + 2, CV_8UC1);
+vector<Mat> TextDetector::getImageDecompositions() const {
+    vector<Mat> outImgDecompositions;
     vector<Vec2i> tmpGroup;
     for (int i = 0; i < regions.size(); i++) {
         for (int j = 0; j < regions[i].size(); j++) {
@@ -59,10 +59,10 @@ Mat TextDetector::getImageDecomposition() const {
         if (i > 0) {
             tmp = tmp / 2;
         }
-        outImgDecomposition = outImgDecomposition | tmp;
+        outImgDecompositions.push_back(tmp);
         tmpGroup.clear();
     }
-    return outImgDecomposition;
+    return outImgDecompositions;
 }
 
 void TextDetector::erDraw(vector<Vec2i> group, Mat &segmentation) const {

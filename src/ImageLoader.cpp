@@ -36,7 +36,7 @@ vector<Mat> ImageLoader::getColorChannels(int mode) const {
     vector<Mat> channels;
     computeNMChannels(image, channels, mode);
     size_t cn = channels.size();
-    for (int i = 0; i < cn - 1; i++) {
+    for (int i = 0; i < cn ; i++) {
         Mat negChannel = 255 - channels[i];
         channels.push_back(negChannel);
     }

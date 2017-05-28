@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "opencv2/text.hpp"
+#include "DetectedWord.h"
 
 using namespace std;
 using namespace cv;
@@ -17,7 +18,7 @@ private:
     Mat outImage;
     Ptr<OCRTesseract> ocr;
     float scaleFont;
-    vector<string> wordsDetection;
+    vector<DetectedWord> wordsDetection;
 
     Mat getTextGroupImage(Rect nmBox, vector<Vec2i> nmRegionGroup, vector<vector<ERStat>> regions) const;
 
@@ -42,7 +43,7 @@ public:
     Mat getOutImage() const;
 
     /** Get list of detected words */
-    vector<string> getWordsDetection() const;
+    vector<DetectedWord> getWordsDetection() const;
 };
 
 #endif //TEXTRECOGNITION_TEXTRECOGNIZER_H

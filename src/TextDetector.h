@@ -53,7 +53,7 @@ public:
     vector<vector<ERStat>> getRegions() const;
 
     /** Get image with extracted Extremal Regions */
-    Mat getImageDecomposition() const;
+    vector<Mat> getImageDecompositions() const;
 };
 
 #endif //TEXTRECOGNITION_TEXTDETECTOR_H
