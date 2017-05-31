@@ -42,3 +42,9 @@ vector<Mat> ImageLoader::getColorChannels(int mode) const {
     }
     return channels;
 }
+
+void ImageLoader::loadImage(Mat image) {
+    this->image = image;
+}
+
+ImageLoader::ImageLoader() {}

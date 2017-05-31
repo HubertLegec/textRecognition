@@ -7,7 +7,7 @@ RecognitionModule::RecognitionModule(std::string imagePath, ColorMode mode) : lo
     loader.loadImage();
 }
 
-void RecognitionModule::process(std::string classifierNM1Path, std::string classifierNM2Path) {
+Mat RecognitionModule::process(std::string classifierNM1Path, std::string classifierNM2Path) {
     vector<Mat> channels;
     if (mode == GRAYSCALE) {
         channels = loader.getChannels();
@@ -23,18 +23,24 @@ void RecognitionModule::process(std::string classifierNM1Path, std::string class
     recognizer.recognize(detector.getRegions(), detector.getNmBoxes(), detector.getNmRegionGroups());
     outImg = recognizer.getOutImage();
     words = recognizer.getWordsDetection();
-}
-
-const Mat &RecognitionModule::getOutImg() const {
     return outImg;
 }
 
-const vector<Mat, allocator<Mat>> &RecognitionModule::getDecompositions() const {
+const vector<Mat> &RecognitionModule::getDecompositions() const {
     return decompositions;
 }
 
-const vector<DetectedWord, allocator<DetectedWord>> &RecognitionModule::getWords() const {
+const vector<DetectedWord> &RecognitionModule::getWords() const {
     return words;
+}
+
+RecognitionModule::RecognitionModule(ColorMode mode) {
+    this->mode = mode;
+}
+
+Mat RecognitionModule::process(std::string classifierNM1Path, std::string classifierNM2Path, Mat image) {
+    loader.loadImage(image);
+    process(classifierNM1Path, classifierNM2Path);
 }
 
 

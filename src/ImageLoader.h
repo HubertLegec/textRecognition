@@ -20,9 +20,13 @@ private:
     Mat image;
 public:
     ImageLoader(const string imagePath);
+    ImageLoader();
 
     /** Must be called before other methods in this class */
     void loadImage();
+
+    /** Must be called before other methods in this class */
+    void loadImage(Mat image);
 
     /** Returns loaded image */
     Mat getImage() const;

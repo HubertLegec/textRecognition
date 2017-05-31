@@ -22,13 +22,15 @@ private:
     std::vector<DetectedWord> words;
 public:
     RecognitionModule(std::string imagePath, ColorMode mode = RGBL);
-    void process(std::string classifierNM1Path, std::string classifierNM2Path);
+    RecognitionModule(ColorMode mode = RGBL);
 
-    const Mat &getOutImg() const;
+    Mat process(std::string classifierNM1Path, std::string classifierNM2Path, Mat image);
 
-    const vector<Mat, allocator<Mat>> &getDecompositions() const;
+    Mat process(std::string classifierNM1Path, std::string classifierNM2Path);
 
-    const vector<DetectedWord, allocator<DetectedWord>> &getWords() const;
+    const vector<Mat> &getDecompositions() const;
+
+    const vector<DetectedWord> &getWords() const;
 };
 
 

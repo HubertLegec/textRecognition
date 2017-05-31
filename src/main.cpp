@@ -11,9 +11,8 @@ int main(int argc, char *argv[]) {
     std::string classifierNM2Path = "trained_classifierNM2.xml";
 
     RecognitionModule recognitionModule(imagePath);
-    recognitionModule.process(classifierNM1Path, classifierNM2Path);
+    Mat outImg = recognitionModule.process(classifierNM1Path, classifierNM2Path);
     auto decompositions = recognitionModule.getDecompositions();
-    Mat outImg = recognitionModule.getOutImg();
     auto words = recognitionModule.getWords();
 
     std::cout << "--- words ---" << std::endl;
