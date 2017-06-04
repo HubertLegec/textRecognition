@@ -16,21 +16,20 @@ enum ColorMode {
 class RecognitionModule {
 private:
     ImageLoader loader;
-    Mat outImg;
-    std::vector<Mat> decompositions;
+    cv::Mat outImg;
+    std::vector<cv::Mat> decompositions;
     ColorMode mode;
     std::vector<DetectedWord> words;
+    Mat process(std::string classifierNM1Path, std::string classifierNM2Path);
 public:
-    RecognitionModule(std::string imagePath, ColorMode mode = RGBL);
+    /*RecognitionModule(std::string imagePath, ColorMode mode = RGBL);*/
     RecognitionModule(ColorMode mode = RGBL);
 
-    Mat process(std::string classifierNM1Path, std::string classifierNM2Path, Mat image);
+    cv::Mat process(std::string classifierNM1Path, std::string classifierNM2Path, cv::Mat image);
 
-    Mat process(std::string classifierNM1Path, std::string classifierNM2Path);
+    /*const vector<Mat> &getDecompositions() const;
 
-    const vector<Mat> &getDecompositions() const;
-
-    const vector<DetectedWord> &getWords() const;
+    const vector<DetectedWord> &getWords() const;*/
 };
 
 
