@@ -20,16 +20,17 @@ private:
     std::vector<cv::Mat> decompositions;
     ColorMode mode;
     std::vector<DetectedWord> words;
-    Mat process(std::string classifierNM1Path, std::string classifierNM2Path);
 public:
-    /*RecognitionModule(std::string imagePath, ColorMode mode = RGBL);*/
+    RecognitionModule(std::string imagePath, ColorMode mode = RGBL);
     RecognitionModule(ColorMode mode = RGBL);
 
     cv::Mat process(std::string classifierNM1Path, std::string classifierNM2Path, cv::Mat image);
 
-    /*const vector<Mat> &getDecompositions() const;
+    cv::Mat process(std::string classifierNM1Path, std::string classifierNM2Path);
 
-    const vector<DetectedWord> &getWords() const;*/
+    const vector<Mat> &getDecompositions() const;
+
+    const vector<DetectedWord> &getWords() const;
 };
 
 

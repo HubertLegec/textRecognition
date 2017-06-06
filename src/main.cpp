@@ -2,33 +2,29 @@
 #include <iostream>
 #include "opencv2/text.hpp"
 #include "opencv2/highgui.hpp"
-#include "ImageLoader.h"
-#include "TextDetector.h"
 #include "TextRecognizer.h"
+#include "RecognitionModule.h"
 
+using namespace std;
 
 int main(int argc, char *argv[]) {
-    std::string imagePath(argv[1]);
-    std::string classifierNM1Path = "trained_classifierNM1.xml";
-    std::string classifierNM2Path = "trained_classifierNM2.xml";
+    string classifierNM1Path = "trained_classifierNM1.xml";
+    string classifierNM2Path = "trained_classifierNM2.xml";
 
-    ImageLoader loader(imagePath);
-    loader.loadImage();
-    vector<Mat> channels = loader.getColorChannels();
+    cout << "Podaj sciezke do pliku z obrazem:" << endl;
+    string imagePath;
+    cin >> imagePath;
 
-    TextDetector detector(classifierNM1Path, classifierNM2Path, loader.getImage(), channels);
-    detector.detect();
-    auto decompositions = detector.getImageDecompositions();
+    RecognitionModule recognitionModule(imagePath);
+    Mat outImg = recognitionModule.process(classifierNM1Path, classifierNM2Path);
+    auto decompositions = recognitionModule.getDecompositions();
+    auto words = recognitionModule.getWords();
 
-    TextRecognizer recognizer(loader.getImage(), channels);
-    recognizer.recognize(detector.getRegions(), detector.getNmBoxes(), detector.getNmRegionGroups());
-    Mat outImg = recognizer.getOutImage();
-
-    std::cout << "--- words ---" << std::endl;
-    for (auto word : recognizer.getWordsDetection()) {
-        std::cout << word.toString() << endl;
+    cout << "--- words ---" << endl;
+    for (auto word : words) {
+        cout << word.toString() << endl;
     }
-    std::cout << "-------------" << std::endl;
+    cout << "-------------" << endl;
 
     for(int i = 0; i < decompositions.size(); i++) {
         namedWindow("decomposition" + to_string(i), WINDOW_NORMAL);
